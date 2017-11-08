@@ -38,11 +38,11 @@ class SensorAccessory extends Accessory {
 
     const service = this.services[1];
 
-    this.log(
+    /* this.log(
       result, '-',
       service.displayName, '-',
       this.type
-    );
+    ); */
 
     this.setCurrentValue(parseFloat(result));
     service
