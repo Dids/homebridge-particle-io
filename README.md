@@ -1,5 +1,5 @@
 [![npm][npm-image]][npm-url] [![Known Vulnerabilities](https://snyk.io/test/github/norman-thomas/homebridge-particle-io/badge.svg)](https://snyk.io/test/github/norman-thomas/homebridge-particle-io)
- [![CodeFactor](https://www.codefactor.io/repository/github/norman-thomas/homebridge-particle-io/badge)](https://www.codefactor.io/repository/github/norman-thomas/homebridge-particle-io) [![Build Status](https://travis-ci.org/norman-thomas/homebridge-particle-io.svg)](https://travis-ci.org/norman-thomas/homebridge-particle-io) [![Coverage Status](https://coveralls.io/repos/github/norman-thomas/homebridge-particle-io/badge.svg)](https://coveralls.io/github/norman-thomas/homebridge-particle-io)
+ [![CodeFactor](https://www.codefactor.io/repository/github/norman-thomas/homebridge-particle-io/badge)](https://www.codefactor.io/repository/github/norman-thomas/homebridge-particle-io) [![Build Status](https://travis-ci.org/norman-thomas/homebridge-particle-io.svg?branch=master)](https://travis-ci.org/norman-thomas/homebridge-particle-io) [![Coverage Status](https://coveralls.io/repos/github/norman-thomas/homebridge-particle-io/badge.svg)](https://coveralls.io/github/norman-thomas/homebridge-particle-io)
 
 [npm-image]: https://img.shields.io/npm/v/homebridge-particle-io.svg?style=flat
 [npm-url]: https://npmjs.org/package/homebridge-particle-io
@@ -52,7 +52,8 @@ In this version, I have made some changes from the older version. Mainly the plu
             "name": "Kitchen Temperature",
             "type": "temperaturesensor",
             "device_id": "<<device id>>",
-            "event_name": "tvalue"
+            "event_name": "tvalue",
+            "split_character": ":"
           }
         ]
       }
@@ -68,5 +69,12 @@ The `devices` array contains all the accessories. You can see the accessory obje
  - **type** - Type of the accessory. As of now, the plugin supports 3 types: `lightbulb`, `temperaturesensor` and `humiditysensor`.
  - **device_id** - Device ID of the Particle Device (Core, Photon or Electron). It is defined in accessory so that you can use different Particle Devices for different accessory.
  - **event_name** - The name of the event to listen for sensor value update. This is only valid if the accessory is a sensor (i.e. currently `temperaturesensor` or `humiditysensor`). The plugin listens for events published from a Particle Device (using `Particle.publish`). The device firmware should publish the sensor values as a raw number.
- - **function_name** - The name of the function that will be called when an action is triggered via HomeKit. This is only valid if the accessory is an actor (i.e. currently only `lightbulb`).
+ - **function_name** - The name of the particle function that will be called when an action is triggered via HomeKit. If there is no function provided, the default `power` will be used. This is only valid if the accessory is an actor (i.e. `lightbulb` or `switchaccessory`).
 
+**Particle Event Data Format**
+-------------------------------------
+By default it expects the event data as "key=value".
+```
+Particle.publish("tvalue", "temperature=20.7")
+```
+In order to parse JSON format, a custom `split_character` can be configured.

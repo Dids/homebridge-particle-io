@@ -7,7 +7,8 @@ const dummyConfig = {
     {
       name: 'Bedroom Light',
       type: 'lightbulb',
-      device_id: 'abcdef1234567890'
+      device_id: 'abcdef1234567890',
+      function_name: 'testFunctionName'
     },
     {
       name: 'Kitchen Light',
@@ -24,7 +25,8 @@ const dummyConfig = {
       name: 'Kitchen Humidity',
       type: 'humiditysensor',
       device_id: '1234567890abcdef',
-      event_name: 'humidity'
+      event_name: 'humidity',
+      split_character: ':'
     },
     {
       name: 'Kitchen Light Sensor',
